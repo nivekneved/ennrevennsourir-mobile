@@ -1,69 +1,64 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+﻿import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type Language = 'fr' | 'en';
 
-interface Translations {
-  [key: string]: {
-    fr: string;
-    en: string;
-  };
+interface TranslationEntry {
+  fr: string;
+  en: string;
 }
 
-export const DICTIONARY: Translations = {
+const DICTIONARY: Record<string, TranslationEntry> = {
   // Navigation & Common
-  home: { fr: 'Accueil', en: 'Home' },
-  campaigns: { fr: 'Combats', en: 'Campaigns' },
-  donate: { fr: 'Faire un Don', en: 'Donate' },
-  sponsorship: { fr: 'Parrainage', en: 'Sponsor' },
-  more: { fr: 'Plus', en: 'More' },
-  transparency: { fr: 'Transparence', en: 'Transparency' },
-  volunteer: { fr: 'Bénévolat', en: 'Volunteer' },
-  press: { fr: 'Presse', en: 'Press' },
-  contact: { fr: 'Contact', en: 'Contact' },
-  back: { fr: 'Retour', en: 'Back' },
-  share: { fr: 'Partager', en: 'Share' },
-  copied: { fr: 'Copié dans le presse-papier !', en: 'Copied to clipboard!' },
-  loading: { fr: 'Chargement en cours...', en: 'Loading...' },
-  error: { fr: 'Une erreur est survenue', en: 'An error occurred' },
-  success: { fr: 'Succès', en: 'Success' },
-  cancel: { fr: 'Annuler', en: 'Cancel' },
-  confirm: { fr: 'Confirmer', en: 'Confirm' },
-  ngoBadge: { fr: 'ONG Agréée 15420 • Île Maurice', en: 'Registered NGO 15420 • Mauritius' },
+  homeTab: { fr: 'Accueil', en: 'Home' },
+  campaignsTab: { fr: 'Combats', en: 'Appeals' },
+  sponsorshipTab: { fr: 'Parrainage', en: 'Sponsor' },
+  transparencyTab: { fr: 'Transparence', en: 'Audits' },
+  moreTab: { fr: 'Menu', en: 'Menu' },
+  donateNow: { fr: 'Faire un Don', en: 'Donate Now' },
+  urgentNeeds: { fr: 'Urgences Vitales', en: 'Urgent Needs' },
+  seeAll: { fr: 'Voir tout', en: 'See All' },
+  currency: { fr: 'MUR', en: 'MUR' },
+  mraTaxDeductible: { fr: 'Déduction Fiscale MRA 15%', en: '15% MRA Tax Relief' },
+  ngoNumber: { fr: 'ONG Agréée N° 15420', en: 'Registered NGO No. 15420' },
 
   // Home Screen
-  urgentAlert: { fr: 'URGENCE CHIRURGICALE EN COURS', en: 'CRITICAL SURGERY IN PROGRESS' },
-  heroTitle: { fr: 'Chaque battement compte.', en: 'Every heartbeat matters.' },
-  heroSubtitle: {
-    fr: 'Sauvons ensemble les enfants mauriciens atteints de cardiopathies congénitales et maladies graves nécessitant des chirurgies vitales à l’étranger.',
-    en: 'Together, let’s save Mauritian children suffering from congenital heart diseases and severe conditions requiring life-saving overseas surgeries.',
+  heroHeadline: {
+    fr: 'Pour chaque enfant, le droit de guérir et de sourire',
+    en: 'For every child, the right to heal and smile',
   },
-  quickDonate: { fr: 'Don Rapide', en: 'Quick Donation' },
-  monthly: { fr: 'Mensuel', en: 'Monthly' },
-  oneTime: { fr: 'Une fois', en: 'One-time' },
-  customAmount: { fr: 'Autre montant', en: 'Custom amount' },
-  heroDonateCta: { fr: 'Faire un Don Sécurisé', en: 'Make a Secure Donation' },
-  impactTitle: { fr: 'Notre Impact Médical Réel', en: 'Our Real Medical Impact' },
-  totalRaised: { fr: 'Fonds Récoltés', en: 'Total Funds Raised' },
-  childrenSaved: { fr: 'Vies Sauvées', en: 'Children Saved' },
-  surgeriesFunded: { fr: 'Chirurgies Financées', en: 'Surgeries Funded' },
+  heroSubtitle: {
+    fr: "Finançons ensemble les chirurgies cardiaques pédiatriques et soins vitaux d'extrême urgence à Maurice.",
+    en: 'Together funding pediatric heart surgeries and vital urgent care for sick children in Mauritius.',
+  },
+  directDonationTitle: { fr: 'Don Direct & Instantané', en: 'Direct & Instant Donation' },
+  customAmount: { fr: 'Autre montant...', en: 'Custom amount...' },
+  oneTime: { fr: 'Don Unique', en: 'One-Time' },
+  monthly: { fr: 'Don Mensuel', en: 'Monthly' },
+  featuredEmergency: { fr: '🚨 Urgence Médicale en Cours', en: '🚨 Critical Medical Emergency' },
+  seeAllCampaigns: { fr: 'Voir les 138 combats', en: 'View all 138 appeals' },
+  impactTitle: { fr: 'Notre Impact en Chiffres', en: 'Our Impact in Numbers' },
+  totalRaised: { fr: 'Fonds Alloués aux Soins', en: 'Disbursed for Care' },
+  childrenSaved: { fr: "Vies d'Enfants Sauvées", en: "Children's Lives Saved" },
+  surgeriesFunded: { fr: 'Opérations Réalisées', en: 'Surgeries Completed' },
   activeVolunteers: { fr: 'Bénévoles Actifs', en: 'Active Volunteers' },
-  featuredEmergency: { fr: 'Urgence Vitale Prioritaire', en: 'Priority Vital Emergency' },
-  seeAllCampaigns: { fr: 'Voir tous les combats', en: 'See all campaigns' },
 
-  // Medical Pathway
-  pathwayTitle: { fr: 'Notre Parcours de Prise en Charge', en: 'Our 4-Step Care Pathway' },
-  pathwayStep1: { fr: '1. Diagnostic & Bilan', en: '1. Audit & Diagnosis' },
-  pathwayStep1Desc: { fr: 'Validation par notre comité médical indépendant.', en: 'Validation by independent medical board.' },
-  pathwayStep2: { fr: '2. Financement 100%', en: '2. 100% Funding' },
-  pathwayStep2Desc: { fr: 'Collecte transparente sans aucun frais prélevé.', en: 'Transparent campaign with 0% admin fees.' },
-  pathwayStep3: { fr: '3. Transfert & Chirurgie', en: '3. Overseas Surgery' },
-  pathwayStep3Desc: { fr: 'Évacuation médicale vers nos hôpitaux partenaires.', en: 'Medical transfer to partner surgical centers.' },
-  pathwayStep4: { fr: '4. Sourire & Suivi', en: '4. Healing & Post-Op' },
-  pathwayStep4Desc: { fr: 'Suivi post-opératoire et retour au pays.', en: 'Long-term rehabilitation and return home.' },
+  // 5-Step Medical Pathway
+  pathwayTitle: { fr: "L'Aide Médicale ERES en 5 Étapes", en: 'Our Medical Support in 5 Steps' },
+  pathwayStep1: { fr: '1. Signalement du Cas', en: '1. Case Referral' },
+  pathwayStep1Desc: { fr: "Contact avec notre cellule d'écoute médicale et transmission des bilans.", en: 'Initial contact with triage team and submitting reports.' },
+  pathwayStep2: { fr: '2. Audit & Devis Médical', en: '2. Medical Audit & Quote' },
+  pathwayStep2Desc: { fr: 'Vérification rigoureuse du protocole chirurgical et des devis.', en: 'Thorough review of surgical protocols and hospital quotes.' },
+  pathwayStep3: { fr: '3. Validation du Comité', en: '3. Board Approval' },
+  pathwayStep3Desc: { fr: 'Feu vert de notre comité de médecins bénévoles.', en: 'Greenlight from our volunteer medical board.' },
+  pathwayStep4: { fr: '4. Financement Transparent', en: '4. Transparent Funding' },
+  pathwayStep4Desc: { fr: 'Collecte solidaire par Juice, Carte & Virement avec reçus fiscaux MRA.', en: 'Community fundraising with automated MRA tax deductible receipts.' },
+  pathwayStep5: { fr: '5. Soins & Rétablissement', en: '5. Surgery & Recovery' },
+  pathwayStep5Desc: { fr: "Règlement direct à l'hôpital (Inde/Maurice) et suivi post-opératoire complet.", en: 'Direct hospital settlement and comprehensive post-op recovery follow-up.' },
 
-  // Campaigns Screen & Filters
-  allCategories: { fr: 'Tous', en: 'All' },
+  // Campaigns Screen
+  campaignsHeroTitle: { fr: 'Combats Médicaux & Appels aux Dons', en: 'Medical Appeals & Fundraising' },
+  catAll: { fr: 'Tous les Enfants', en: 'All Children' },
   catChild: { fr: 'Cardiopathies Pédiatriques', en: 'Pediatric Cardiac' },
   catCancer: { fr: 'Oncologie & Leucémie', en: 'Oncology & Leukemia' },
   catEmergency: { fr: 'Urgences Vitales', en: 'Vital Emergencies' },
