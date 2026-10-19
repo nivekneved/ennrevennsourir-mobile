@@ -23,9 +23,9 @@ export const NGO_CONFIG = {
 export const BANKING_DETAILS = {
   juice: {
     name: 'MCB Juice',
-    merchantNumber: '5816 9420',
+    merchantNumber: '5909 9219',
     accountName: 'ENN REV ENN SOURIR',
-    qrPayload: 'JUICEPAY:0023058169420?name=ENN%20REV%20ENN%20SOURIR&ref=ERES-MOBILE',
+    qrPayload: 'JUICEPAY:0023059099219?name=ENN%20REV%20ENN%20SOURIR&ref=ERES-MOBILE',
   },
   maucas: {
     name: 'MauCAS Instant QR',

@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type Language = 'fr' | 'en';
@@ -94,8 +94,8 @@ const DICTIONARY: Record<string, TranslationEntry> = {
   },
   generateReceipt: { fr: 'Obtenir mon Reçu Fiscal Numérique', en: 'Generate Digital Tax Receipt' },
   juiceQrInstructions: {
-    fr: 'Scannez ce QR Code avec votre application MCB Juice ou effectuez un virement sur le 5757 0000.',
-    en: 'Scan this QR Code with your MCB Juice app or transfer directly to 5757 0000.',
+    fr: 'Scannez ce QR Code avec votre application MCB Juice ou effectuez un virement sur le 5909 9219.',
+    en: 'Scan this QR Code with your MCB Juice app or transfer directly to 5909 9219.',
   },
   maucasInstructions: {
     fr: 'Compatible avec toutes les banques mauriciennes (SBM, Absa, MCB, Blink, my.t money, Pop).',
