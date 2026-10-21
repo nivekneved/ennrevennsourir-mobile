@@ -1,6 +1,7 @@
 # ==============================================================================
 # ENN REV ENN SOURIR MOBILE - SECURITY & PRODUCTION .GITIGNORE
-# Zero-Leak Policy: No backups, credentials, secrets, or sensitive data online
+# Zero-Leak Policy: No backups, credentials, secrets, or internal docs online.
+# Allowed on GitHub: Only README.md.
 # ==============================================================================
 
 # 1. Dependencies
@@ -74,7 +75,19 @@ git_bundles/
 *.rar
 *.gz
 
-# 7. Sensitive Spreadsheets, Documents & Media Exports
+# 7. Documentation & File Whitelist Policy (STRICT)
+# Rule: No internal documentation allowed on GitHub except README.md
+docs/
+documentation/
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+CONTRIBUTING.md
+ARCHITECTURE.md
+*.md
+!README.md
+
+# Non-code documents & spreadsheets (Internal files)
 *.xlsx
 *.xls
 *.csv
