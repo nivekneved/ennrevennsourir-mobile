@@ -1,41 +1,124 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# ==============================================================================
+# ENN REV ENN SOURIR MOBILE - SECURITY & PRODUCTION .GITIGNORE
+# Zero-Leak Policy: No backups, credentials, secrets, or sensitive data online
+# ==============================================================================
 
-# dependencies
+# 1. Dependencies
 node_modules/
+/.pnp
+.pnp.*
 
-# Expo
+# 2. Expo & Metro Bundler
 .expo/
 dist/
 web-build/
 expo-env.d.ts
+.metro-health-check*
 
-# Native
-.kotlin/
+# 3. Generated Native Folders (managed workflow)
+/ios
+/android
+
+# 4. Native Certificates, Keys & Provisioning Profiles (CRITICAL)
 *.orig.*
 *.jks
 *.p8
 *.p12
+*.pfx
+*.pkcs12
 *.key
+*.pem
+*.cert
+*.crt
+*.keystore
 *.mobileprovision
+credentials.json
+service-account*.json
+client_secret*.json
+google-services.json
+GoogleService-Info.plist
 
-# Metro
-.metro-health-check*
+# 5. Environment Variables & Secrets
+.env
+.env*
+*.env
+*.env.local
+*.env.*.local
+*.env.development
+*.env.test
+*.env.production
 
-# debug
+# Explicitly allow safe example template if present
+!.env.example
+
+# 6. Database Backups, Dumps & Archives (STRICT ZERO-LEAK)
+backups/
+backup_*/
+*_backup*/
+files_archive/
+git_bundles/
+*.bundle
+*.dump
+*.sql
+*.sql.gz
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.backup
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+*.gz
+
+# 7. Sensitive Spreadsheets, Documents & Media Exports
+*.xlsx
+*.xls
+*.csv
+*.tsv
+*.xml
+*.pdf
+*.pptx
+*.docx
+
+# 8. TypeScript & Coverage
+*.tsbuildinfo
+coverage/
+.nyc_output/
+*.lcov
+
+# 9. Debugging & Package Manager Logs
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+pnpm-debug.*
+*.log
 
-# macOS
+# 10. Operating System Generated Files
 .DS_Store
-*.pem
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
 
-# local env files
-.env*.local
+# 11. IDE & Editor Files
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
 
-# typescript
-*.tsbuildinfo
-
-# generated native folders
-/ios
-/android
+# 12. AI / Agent Scratch Directories & IDE Configs
+.claude/
+.agents/
+.gemini/
