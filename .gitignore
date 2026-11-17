@@ -1,6 +1,6 @@
 # ==============================================================================
 # ENN REV ENN SOURIR MOBILE - SECURITY & PRODUCTION .GITIGNORE
-# Zero-Leak Policy: No backups, credentials, secrets, or internal docs online.
+# Strict Zero-Leak Policy: No backups, credentials, secrets, or internal docs online.
 # Allowed on GitHub: Only README.md.
 # ==============================================================================
 
@@ -33,21 +33,29 @@ expo-env.d.ts
 *.crt
 *.keystore
 *.mobileprovision
-credentials.json
+*.id_rsa*
+*.id_ed25519*
+credentials*.json
 service-account*.json
+firebase-admin*.json
 client_secret*.json
 google-services.json
 GoogleService-Info.plist
+mcp_config*.json
+.mcp.json
 
 # 5. Environment Variables & Secrets
 .env
 .env*
 *.env
+*.env.*
 *.env.local
 *.env.*.local
 *.env.development
 *.env.test
 *.env.production
+secrets/
+*.secret
 
 # Explicitly allow safe example template if present
 !.env.example
@@ -76,7 +84,7 @@ git_bundles/
 *.gz
 
 # 7. Documentation & File Whitelist Policy (STRICT)
-# Rule: No internal documentation allowed on GitHub except README.md
+# Rule: No internal documentation or agent notes allowed on GitHub except README.md
 docs/
 documentation/
 AGENTS.md
@@ -92,16 +100,22 @@ ARCHITECTURE.md
 *.xls
 *.csv
 *.tsv
+*.ods
 *.xml
 *.pdf
 *.pptx
+*.ppt
 *.docx
+*.doc
 
 # 8. TypeScript & Coverage
 *.tsbuildinfo
 coverage/
 .nyc_output/
 *.lcov
+scratch/
+temp/
+tmp/
 
 # 9. Debugging & Package Manager Logs
 npm-debug.*
@@ -122,6 +136,7 @@ Desktop.ini
 
 # 11. IDE & Editor Files
 .idea/
+*.code-workspace
 *.sublime-project
 *.sublime-workspace
 .vscode/*
@@ -134,4 +149,8 @@ Desktop.ini
 # 12. AI / Agent Scratch Directories & IDE Configs
 .claude/
 .agents/
+.agent/
+.cursor/
 .gemini/
+.windsurf/
+.copilot/

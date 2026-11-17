@@ -36,7 +36,10 @@ export const JuiceQrDisplay: React.FC<JuiceQrDisplayProps> = ({ amount, currency
         </View>
 
         <View style={styles.actionRow}>
-          <CopyButton valueToCopy="57570000" label="Copier le N° 5757 0000" />
+          <CopyButton
+            valueToCopy={BANKING_DETAILS.juice.merchantNumber.replace(/\s+/g, '')}
+            label={`Copier le N° ${BANKING_DETAILS.juice.merchantNumber}`}
+          />
         </View>
       </View>
     </View>
